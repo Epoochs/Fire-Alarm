@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.awt.Toolkit;
 import java.awt.Dimension;
+import java.io.IOException;
 
 public class MainWindowUI {
 
@@ -58,13 +59,14 @@ public class MainWindowUI {
 
     /**/
     private int setPoint;
+    private boolean alertMsgState = false;
 
     /* Constractor to Initialize the MainWindow */
-    public MainWindowUI() throws FileNotFoundException {
+    public MainWindowUI() throws FileNotFoundException, IOException {
         initialize();
     }
 
-    private void initialize() throws FileNotFoundException {
+    private void initialize() throws FileNotFoundException, IOException {
 
         /* Frame Window */
         mainWindow = new JFrame();
@@ -95,16 +97,16 @@ public class MainWindowUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /* Show the Settings Dialog */
-                if (settingsWindow_dia == null || !settingsWindow_dia.getFoucs().isShowing()) {
+                if (settingsWindow_dia == null || !settingsWindow_dia.getSettings_dia().isShowing()) {
                     settingsWindow_dia = new SettingsWindowUI(MainWindowUI.this);
-                    settingsWindow_dia.getFoucs().setVisible(true);
-                    
-                    zone1.setSetPoint(setPoint);
-                    zone2.setSetPoint(setPoint);
-                    zone3.setSetPoint(setPoint);
-                    zone4.setSetPoint(setPoint);
+                    settingsWindow_dia.getSettings_dia().setVisible(true);
+
+                    zone1.setSetPoint(setPointZone1_i);
+                    zone2.setSetPoint(setPointZone2_i);
+                    zone3.setSetPoint(setPointZone3_i);
+                    zone4.setSetPoint(setPointZone4_i);
                 } else {
-                    settingsWindow_dia.getFoucs().requestFocus(); // Bring the settings window to the front
+                    settingsWindow_dia.getSettings_dia().requestFocus(); // Bring the settings window to the front
                 }
             }
         });
@@ -143,24 +145,23 @@ public class MainWindowUI {
         mainWindow.add(gridPanel, BorderLayout.CENTER);
         mainWindow.add(controlPanel, BorderLayout.SOUTH);
         mainWindow.setVisible(true);
-        
+
         /* Start the SettingsUI to configure the system at first time */
         settingsWindow_dia = new SettingsWindowUI(this);
-        settingsWindow_dia.getFoucs().setVisible(true);
+        settingsWindow_dia.getSettings_dia().setVisible(true);
         System.out.println(setPoint);
-        
-        
+
         /* Start The Zone's Thread */
-        zone1 = new Zones(sensorfile1_s, "zone1", setPoint, MainWindowUI.this, Color.YELLOW,1);
+        zone1 = new Zones(sensorfile1_s, "zone1", setPointZone1_i, MainWindowUI.this, Color.YELLOW, 1);
         zone1.start();
 
-        zone2 = new Zones(sensorfile2_s, "zone2", setPoint, MainWindowUI.this, Color.BLUE,2);
+        zone2 = new Zones(sensorfile2_s, "zone2", setPointZone2_i, MainWindowUI.this, Color.BLUE, 2);
         zone2.start();
-        
-        zone3 = new Zones(sensorfile3_s, "zone3", setPoint, MainWindowUI.this, Color.GREEN,3);
+
+        zone3 = new Zones(sensorfile3_s, "zone3", setPointZone3_i, MainWindowUI.this, Color.GREEN, 3);
         zone3.start();
-        
-        zone4 = new Zones(sensorfile4_s, "zone4", setPoint, MainWindowUI.this, Color.RED,4);
+
+        zone4 = new Zones(sensorfile4_s, "zone4", setPointZone4_i, MainWindowUI.this, Color.RED, 4);
         zone4.start();
 
     }
@@ -363,6 +364,43 @@ public class MainWindowUI {
 
     public void setSetPoint(int setPoint) {
         this.setPoint = setPoint;
+    }
+
+    public void showAlertMsg(boolean alarmState) {
+
+        if (alarmState) {
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Alert");
+            dialog.setModal(true);
+
+            JButton silenceButton = new JButton("Silence");
+            silenceButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (Zones.zoneAlarmSignal_i > 0) {
+                        Zones.zoneAlarmSignal_i--;
+                        dialog.dispose();
+                    }
+                }
+            });
+
+            JLabel messageLabel = new JLabel("This is an alert message.", SwingConstants.CENTER);
+            ImageIcon imageIcon = new ImageIcon("C:\\Users\\sheri\\OneDrive\\Documents\\NetBeansProjects\\JavaApplication1\\src\\javaapplication1\\Danger.png");
+            JLabel iconLabel = new JLabel(imageIcon);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(messageLabel, BorderLayout.NORTH);
+            panel.add(iconLabel, BorderLayout.CENTER);
+            panel.add(silenceButton, BorderLayout.SOUTH);
+
+            dialog.getContentPane().add(panel);
+            dialog.setSize(300, 200);
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        } else {
+            // Nothing
+        }
     }
 
 }

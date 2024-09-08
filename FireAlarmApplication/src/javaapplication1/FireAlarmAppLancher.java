@@ -6,6 +6,7 @@
 package javaapplication1;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
@@ -23,6 +24,8 @@ public class FireAlarmAppLancher {
             try {
                 appUI = new MainWindowUI();
             } catch (FileNotFoundException ex) {
+                Logger.getLogger(FireAlarmAppLancher.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
                 Logger.getLogger(FireAlarmAppLancher.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
