@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -10,3 +11,16 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/F:/Java/FireSystem/src/firesystem/FXMLDocumentController.java</file>
+            <file>file:/F:/Java/FireSystem/src/firesystem/FireSystem.java</file>
+            <file>file:/F:/Java/FireSystem/src/firesystem/Zone.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> c9240a43efdd0b16d7c0addf5a26ec8f65dff8d1
