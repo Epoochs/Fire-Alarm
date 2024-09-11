@@ -14,7 +14,8 @@ import java.io.IOException;
  */
 public class Buzzer {
     
-    public static boolean buzzerState;
+    public volatile static boolean buzzerState;
+    
     
     public static void setBuzzOn(String buzzPath) throws IOException {
         buzzerState = true;
