@@ -464,16 +464,16 @@ provided to stop the alarm.
 
 The Zone class is a thread that monitors a specific zone:
 
-- **zoneTitle: Name of the zone.
-- **ledPath: Path to control the LED for this zone.
-- **tempPath: Path to read temperature data.
-- **setTemp: Temperature threshold to detect a fire.
-- **currentTemp: Current temperature reading.
-- **fireState: Indicates if the zone is in a fire state.
-- **sensorState: Determines if the sensor is functional.
-- **error: Tracks if there is an error in the zone.
-- **canDown and canError: Flags for managing communication and error states for the zone.
-- **Each zone monitors the temperature through input streams and controls the alarm and LED using output streams.
+- zoneTitle: Name of the zone.
+- ledPath: Path to control the LED for this zone.
+- tempPath: Path to read temperature data.
+- setTemp: Temperature threshold to detect a fire.
+- currentTemp: Current temperature reading.
+- fireState: Indicates if the zone is in a fire state.
+- sensorState: Determines if the sensor is functional.
+- error: Tracks if there is an error in the zone.
+- canDown and canError: Flags for managing communication and error states for the zone.
+- Each zone monitors the temperature through input streams and controls the alarm and LED using output streams.
 
 Each zone monitors the temperature through input streams and controls the alarm and LED using output streams.
 
