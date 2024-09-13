@@ -435,9 +435,47 @@ java --module-path /usr/share/java --add-modules javafx.controls,javafx.fxml -cp
 
 ### 4. Fire Alarm Application 
 
+This Java-based fire detection system monitors multiple zones for potential fire hazards. Each zone operates as a separate thread, monitoring temperature through input streams and controlling an LED and buzzer 
+
+alarm system. The application consists of multiple scenes:
+
+1. Intro Scene: Displays an introductory animation (GIF).
+
+2. Login Page: User must log in using a valid username and password.
+
+3. Configuration Menu: Allows the user to set the fire temperature threshold for each zone. If any zone is left without a setting, it will be assigned a default value.
+
+4. Main Scene: Displays the status of each zone and allows monitoring of fire hazards. If a fire is detected in any zone, the alarm sounds, and the LED for the respective zone lights up. A "Silence" button is
+
+provided to stop the alarm.
 
 
+#### Application Flow
 
+1. Intro Scene: After the intro animation completes, the application transitions to the login page.
+
+2. Login Page: Requires a username and password to proceed to the next step. On successful login, the configuration menu is displayed.
+
+3. Configuration Menu: The user sets a fire temperature threshold for each zone. If any zone is left without a specified value, the system prompts the user, allowing them to assign a default temperature. The main monitoring scene is launched afterward.
+
+4. Main Scene: In the main scene, each zone is represented by an instance of the Zone class, which monitors the temperature and triggers the alarm and LED if a fire is detected. The GUI shows which zone is on fire.
+
+#### Zone Class
+
+The Zone class is a thread that monitors a specific zone:
+
+- **zoneTitle: Name of the zone.
+- **ledPath: Path to control the LED for this zone.
+- **tempPath: Path to read temperature data.
+- **setTemp: Temperature threshold to detect a fire.
+- **currentTemp: Current temperature reading.
+- **fireState: Indicates if the zone is in a fire state.
+- **sensorState: Determines if the sensor is functional.
+- **error: Tracks if there is an error in the zone.
+- **canDown and canError: Flags for managing communication and error states for the zone.
+- **Each zone monitors the temperature through input streams and controls the alarm and LED using output streams.
+
+Each zone monitors the temperature through input streams and controls the alarm and LED using output streams.
 
 
 
