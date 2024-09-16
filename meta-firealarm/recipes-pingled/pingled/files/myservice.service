@@ -1,0 +1,11 @@
+[Unit]
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pingled.sh
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
