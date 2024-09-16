@@ -411,6 +411,80 @@ ls /dev | grep LED
 #### CAN Manager Driver:
 A custom driver was written to handle the CAN bus communication. It manages the SPI protocol over the CAN interface to communicate with the STM ECU.
 
+# CAN Communication Using MCP2515 (SPI) and SocketCAN
+
+## Overview
+
+This repository contains kernel modules demonstrating CAN (Controller Area Network) communication using two methods:
+1. *SPI-based CAN Communication*: Utilizes the MCP2515 CAN controller connected via SPI.
+2. *SocketCAN Communication*: Utilizes the SocketCAN interface available on Linux systems for CAN communication.
+
+## SPI-based CAN Communication with MCP2515
+
+### Description
+
+This module demonstrates how to interface with the MCP2515 CAN controller over SPI. It includes functions for:
+- Reading and writing to MCP2515 registers
+- Resetting the MCP2515
+- Configuring bit timing
+- Setting operation modes
+- Receiving CAN messages
+
+### Prerequisites
+
+- Linux kernel with SPI support enabled.
+- MCP2515 CAN controller connected via SPI.
+- SPI device configured in the device tree or as a kernel module.
+
+### Building the Module
+
+1. Create a Makefile to compile the module.
+2. Build the module using make.
+
+### Loading the Module
+
+1. Insert the module using insmod.
+2. Check the kernel log for output using dmesg or cat /var/log/kern.log.
+
+### Usage
+
+- The module initializes the MCP2515, configures it, and prints received CAN messages to the kernel log.
+- To simulate receiving CAN messages, the module will log received data upon initialization.
+
+## CAN Communication Using SocketCAN
+
+### Description
+
+This module demonstrates CAN communication using the SocketCAN interface on Linux. It includes functionality for:
+- Sending CAN frames
+- Receiving CAN frames via a notifier block
+
+### Prerequisites
+
+- Linux kernel with SocketCAN support enabled.
+- CAN interface (e.g., can0) set up and configured on your system.
+
+### Building the Module
+
+1. Create a Makefile to compile the module.
+2. Build the module using make.
+
+### Loading the Module
+
+1. Insert the module using insmod.
+2. Ensure that the CAN interface (e.g., can0) is configured and up.
+3. Check the kernel log for output using dmesg or cat /var/log/kern.log.
+
+### Usage
+
+- The module will send a sample CAN message upon initialization.
+- It will log received CAN frames to the kernel log.
+
+### Configuration
+
+- Replace "can0" with the appropriate CAN interface name as needed in the source code.
+
+
 
 
 
